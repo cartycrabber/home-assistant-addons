@@ -1,0 +1,70 @@
+name: Update Open WebUI
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"  # Every Monday 08:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    name: Check for Open WebUI updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v6.0.2
+
+      - name: Get latest open-webui release
+        id: latest
+        run: |
+          LATEST=$(curl -sSf https://api.github.com/repos/open-webui/open-webui/releases/latest \
+            | jq -r '.tag_name | ltrimstr("v")')
+          if [ -z "$LATEST" ]; then
+            echo "ERROR: Failed to fetch latest open-webui version" >&2
+            exit 1
+          fi
+          echo "version=${LATEST}" >> "$GITHUB_OUTPUT"
+
+      - name: Get current version
+        id: current
+        run: |
+          CURRENT=$(grep '^version:' open-webui/config.yaml | awk '{print $2}' | tr -d '"')
+          echo "version=${CURRENT}" >> "$GITHUB_OUTPUT"
+
+      - name: Determine if update is needed
+        id: check
+        run: |
+          if [ "${{ steps.latest.outputs.version }}" != "${{ steps.current.outputs.version }}" ]; then
+            echo "needed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "needed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Bump version in config.yaml and Dockerfile
+        if: steps.check.outputs.needed == 'true'
+        run: |
+          NEW="${{ steps.latest.outputs.version }}"
+          sed -i "s/^version: .*/version: \"${NEW}\"/" open-webui/config.yaml
+          # Keep Dockerfile ARG default in sync for local development convenience.
+          # (Not required for CI builds — HA builder injects BUILD_VERSION automatically.)
+          sed -i "s/^ARG BUILD_VERSION=.*/ARG BUILD_VERSION=${NEW}/" open-webui/Dockerfile
+
+      - name: Open Pull Request
+        if: steps.check.outputs.needed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: "update/open-webui-${{ steps.latest.outputs.version }}"
+          commit-message: "Update open-webui to v${{ steps.latest.outputs.version }}"
+          title: "Update open-webui to v${{ steps.latest.outputs.version }}"
+          body: |
+            Automated update of the open-webui base image.
+
+            - Previous version: `${{ steps.current.outputs.version }}`
+            - New version: `${{ steps.latest.outputs.version }}`
+
+            [Release notes](https://github.com/open-webui/open-webui/releases/tag/v${{ steps.latest.outputs.version }})
+          labels: "dependencies,automated"

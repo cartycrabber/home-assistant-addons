@@ -1,0 +1,6 @@
+configuration:
+  env_vars:
+    name: Environment Variables
+    description: >-
+      Environment variables for open-webui.
+      See https://docs.openwebui.com/reference/env-configuration for the full list.

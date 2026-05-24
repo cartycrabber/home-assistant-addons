@@ -1,0 +1,47 @@
+# https://developers.home-assistant.io/docs/apps/configuration#app-configuration
+name: Open WebUI
+version: "0.9.5"
+slug: open-webui
+description: >-
+  A feature-rich, self-hosted AI platform supporting Ollama and
+  OpenAI-compatible APIs. Runs entirely locally.
+url: "https://openwebui.com"
+arch:
+  - aarch64
+  - amd64
+init: false
+
+# Store persistent data in /data
+map:
+  - type: data
+    read_only: False
+    path: /app/backend/data
+
+# Expose port for direct access (disabled by default; user sets a host port to enable)
+ports:
+  8080/tcp: null
+ports_description:
+  8080/tcp: "Open WebUI web interface (direct access)"
+
+# Ingress: HA sidebar access
+ingress: true
+ingress_port: 8080
+panel_icon: mdi:robot
+panel_title: Open WebUI
+
+# Health check — open-webui exposes /health returning {"status": true}
+watchdog: "http://[HOST]:[PORT:8080]/health"
+
+timeout: 60
+
+startup: application
+
+options:
+  env_vars: []
+
+schema:
+  env_vars:
+    - name: str
+      value: str
+
+image: "ghcr.io/cartycrabber/app-open-webui"

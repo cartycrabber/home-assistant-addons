@@ -10,12 +10,12 @@ Apps documentation: <https://developers.home-assistant.io/docs/apps>
 
 This repository contains the following apps
 
-### [Example app](./example)
+### [Open WebUI](./open-webui)
 
 ![Supports aarch64 Architecture][aarch64-shield]
 ![Supports amd64 Architecture][amd64-shield]
 
-_Example app to use as a blueprint for new apps._
+_A feature-rich, self-hosted AI platform supporting Ollama and OpenAI-compatible APIs._
 
 <!--
 
