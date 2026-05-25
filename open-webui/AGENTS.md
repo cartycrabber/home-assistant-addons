@@ -23,10 +23,9 @@ schema:
 
 All Open WebUI tunables are passed through this list. See the [upstream env reference](https://docs.openwebui.com/reference/env-configuration) for available variables. Note that `PersistentConfig` variables are only applied on first startup.
 
-## Ingress & Ports
+## Ports
 
-- Ingress is always enabled; Open WebUI is accessible from the HA sidebar without any extra configuration.
-- Direct host-port access is opt-in: the `8080/tcp` port mapping defaults to `null` (disabled). Users set a port number in the app's _Network_ settings to enable external access.
+- The `8080/tcp` port mapping defaults to `8080`. Users can change the port number in the app's _Network_ settings.
 
 ## Version Updates
 

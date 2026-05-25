@@ -3,8 +3,7 @@ name: Open WebUI
 version: "0.9.5"
 slug: open-webui
 description: >-
-  A feature-rich, self-hosted AI platform supporting Ollama and
-  OpenAI-compatible APIs. Runs entirely locally.
+  A feature-rich, self-hosted AI platform supporting Ollama and OpenAI-compatible APIs.
 url: "https://openwebui.com"
 arch:
   - aarch64
@@ -17,17 +16,11 @@ map:
     read_only: False
     path: /app/backend/data
 
-# Expose port for direct access (disabled by default; user sets a host port to enable)
+# Expose port for direct access
 ports:
-  8080/tcp: null
+  8080/tcp: 8080
 ports_description:
-  8080/tcp: "Open WebUI web interface (direct access)"
-
-# Ingress: HA sidebar access
-ingress: true
-ingress_port: 8080
-panel_icon: mdi:robot
-panel_title: Open WebUI
+  8080/tcp: "Open WebUI web interface"
 
 timeout: 60
 
