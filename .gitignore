@@ -1,1 +1,4 @@
 .kilo/
+.playwright-cli/
+.agents/
+skills-lock.json

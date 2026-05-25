@@ -5,12 +5,19 @@
   "remoteUser": "vscode",
   "appPort": ["7123:8123", "7357:4357"],
   "postStartCommand": "bash devcontainer_bootstrap",
+  "postCreateCommand": "sudo apt update && sudo apt upgrade -y && npm install -g playwright@latest @playwright/cli@latest && playwright install chrome --with-deps",
   "runArgs": ["-e", "GIT_EDITOR=code --wait", "--privileged"],
   "workspaceFolder": "/mnt/supervisor/addons/local/${localWorkspaceFolderBasename}",
   "workspaceMount": "source=${localWorkspaceFolder},target=${containerWorkspaceFolder},type=bind,consistency=cached",
   "containerEnv": {
     "WORKSPACE_DIRECTORY": "${containerWorkspaceFolder}",
-    "SUPERVISOR_CHANNEL": "beta"
+    "SUPERVISOR_CHANNEL": "beta",
+    "PLAYWRIGHT_CLI_SESSION": "home-assistant-addons"
+  },
+  "features": {
+    "ghcr.io/devcontainers/features/node:2": {
+      "version": "latest"
+    }
   },
   "customizations": {
     "vscode": {
