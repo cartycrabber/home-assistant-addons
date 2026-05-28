@@ -29,7 +29,6 @@ ports_description:
 
 timeout: 120
 backup: cold
-watchdog: "tcp://[HOST]:[PORT:5432]"
 
 options:
   postgres_user: "postgres"

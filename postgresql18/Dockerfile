@@ -10,6 +10,9 @@ RUN apt-get update && \
 COPY run.sh /run.sh
 RUN chmod +x /run.sh
 
+HEALTHCHECK --interval=5s --timeout=5s --start-period=10s --retries=5 \
+    CMD pg_isready || exit 1
+
 CMD ["/run.sh"]
 
 LABEL \
