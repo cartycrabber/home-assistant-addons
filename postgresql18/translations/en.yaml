@@ -1,0 +1,40 @@
+configuration:
+  postgres_user:
+    name: Database User
+    description: Superuser username created on first start. Cannot be changed after initialization.
+  postgres_password:
+    name: Database Password
+    description: >-
+      Superuser password. Required. Change takes effect only on a fresh (empty) database.
+  postgres_db:
+    name: Default Database
+    description: >-
+      Name of the default database created on first start.
+      Leave empty to use the same name as the database user.
+  initdb_args:
+    name: initdb Arguments
+    description: >-
+      Arguments passed to initdb on first start only.
+      Default "--data-checksums" enables storage integrity verification.
+      Set to empty string to disable.
+  ssl:
+    name: Enable SSL/TLS
+    description: >-
+      Encrypt connections using SSL/TLS. Requires valid certificate and key
+      files in the Home Assistant SSL directory.
+  ssl_certfile:
+    name: SSL Certificate Filename
+    description: >-
+      Filename of the SSL certificate in the HA SSL directory (/ssl/).
+      Typically "fullchain.pem" for Let's Encrypt certificates.
+  ssl_keyfile:
+    name: SSL Key Filename
+    description: >-
+      Filename of the private key in the HA SSL directory (/ssl/).
+      Typically "privkey.pem" for Let's Encrypt certificates.
+  extra_args:
+    name: Extra PostgreSQL Arguments
+    description: >-
+      Additional PostgreSQL configuration parameters as name/value pairs.
+      These are passed as -c flags to the postgres binary.
+      Examples: "max_connections" / "200", "shared_buffers" / "256MB".

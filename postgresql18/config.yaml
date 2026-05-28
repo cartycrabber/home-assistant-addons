@@ -1,0 +1,56 @@
+# https://developers.home-assistant.io/docs/apps/configuration#app-configuration
+name: PostgreSQL 18
+version: "18.4"
+slug: postgresql18
+description: >-
+  PostgreSQL 18 database server. A powerful, open-source relational database
+  for use with Home Assistant apps and other local services.
+url: "https://github.com/cartycrabber/home-assistant-addons/tree/main/postgresql18"
+arch:
+  - aarch64
+  - amd64
+init: false
+startup: system
+
+# PG18 uses /var/lib/postgresql as its volume root (PGDATA = /var/lib/postgresql/18/docker)
+map:
+  - type: data
+    read_only: false
+    path: /var/lib/postgresql
+  - type: ssl
+    read_only: true
+  - type: addon_config
+    read_only: true
+
+ports:
+  5432/tcp: 5432
+ports_description:
+  5432/tcp: "PostgreSQL database"
+
+timeout: 120
+backup: cold
+watchdog: "tcp://[HOST]:[PORT:5432]"
+
+options:
+  postgres_user: "postgres"
+  postgres_password: null
+  postgres_db: ""
+  initdb_args: "--data-checksums"
+  ssl: false
+  ssl_certfile: "fullchain.pem"
+  ssl_keyfile: "privkey.pem"
+  extra_args: []
+
+schema:
+  postgres_user: str
+  postgres_password: password
+  postgres_db: str
+  initdb_args: str
+  ssl: bool
+  ssl_certfile: str
+  ssl_keyfile: str
+  extra_args:
+    - name: str
+      value: str
+
+image: "ghcr.io/cartycrabber/app-postgresql18"
