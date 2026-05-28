@@ -17,6 +17,13 @@ This repository contains the following apps
 
 _A feature-rich, self-hosted AI platform supporting Ollama and OpenAI-compatible APIs._
 
+### [Postgresql 18](./postgresql18)
+
+![Supports aarch64 Architecture][aarch64-shield]
+![Supports amd64 Architecture][amd64-shield]
+
+_PostgreSQL 18 database server for Home Assistant. A powerful, open-source relational database for use with HA apps and other local services._
+
 <!--
 
 Notes to developers after forking or using the github template feature:
