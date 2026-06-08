@@ -1,6 +1,6 @@
 # BUILD_VERSION is automatically injected by the HA builder from config.yaml version.
 # For local builds: docker build --build-arg BUILD_VERSION=0.9.5 .
-ARG BUILD_VERSION=0.9.5
+ARG BUILD_VERSION=0.9.6
 FROM ghcr.io/open-webui/open-webui:${BUILD_VERSION}
 
 COPY run.sh /run.sh
