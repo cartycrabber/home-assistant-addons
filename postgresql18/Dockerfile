@@ -1,6 +1,6 @@
 # BUILD_VERSION is automatically injected by the HA builder from config.yaml version.
 # For local builds: docker build --build-arg BUILD_VERSION=18.4 .
-ARG BUILD_VERSION=18.4
+ARG BUILD_VERSION=18.6
 FROM postgres:${BUILD_VERSION}
 
 RUN apt-get update && \
