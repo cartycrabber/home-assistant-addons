@@ -1,6 +1,6 @@
 # https://developers.home-assistant.io/docs/apps/configuration#app-configuration
 name: Open WebUI
-version: "0.9.5"
+version: "0.12.4"
 slug: open-webui
 description: >-
   A feature-rich, self-hosted AI platform supporting Ollama and OpenAI-compatible APIs.
